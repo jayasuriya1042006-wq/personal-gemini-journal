@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny-all rule to prevent unauthenticated or wildcard access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Strict multi-tenant isolation under /users/{userId}
+    match /users/{userId} {
+      // Root user document - only the authenticated owner can access
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      // Private journal entries subcollection
+      match /journals/{journalId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // Private AI summaries, mood trends, and personal reflections
+      match /insights/{insightId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // Private interactive AI guidance & reflective conversations
+      match /conversations/{conversationId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+
+      // Private user preferences, encryption settings, and security audits
+      match /settings/{settingId} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+  }
+}

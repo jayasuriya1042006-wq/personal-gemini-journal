@@ -1,0 +1,60 @@
+{
+  "entities": {
+    "User": {
+      "path": "/users/{userId}",
+      "description": "User profile with isolation boundary",
+      "properties": {
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "lastLoginAt": { "type": "string" },
+        "privacyPreferences": { "type": "object" }
+      },
+      "rules": "request.auth != null && request.auth.uid == userId"
+    },
+    "JournalEntry": {
+      "path": "/users/{userId}/journals/{journalId}",
+      "description": "Private journal entries authored by the authenticated user",
+      "properties": {
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "mood": { "type": "string" },
+        "tags": { "type": "array" },
+        "prompt": { "type": "string" },
+        "aiReflection": { "type": "string" },
+        "aiThemes": { "type": "array" },
+        "aiActionItems": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "wordCount": { "type": "number" },
+        "sentiment": { "type": "string" },
+        "isEncrypted": { "type": "boolean" }
+      },
+      "rules": "request.auth != null && request.auth.uid == userId"
+    },
+    "Insight": {
+      "path": "/users/{userId}/insights/{insightId}",
+      "description": "Gemini-generated periodic summaries and wellbeing trends",
+      "properties": {
+        "period": { "type": "string" },
+        "summary": { "type": "string" },
+        "keyThemes": { "type": "array" },
+        "growthOpportunities": { "type": "array" },
+        "emotionalLandscape": { "type": "string" },
+        "generatedAt": { "type": "string" }
+      },
+      "rules": "request.auth != null && request.auth.uid == userId"
+    },
+    "Conversation": {
+      "path": "/users/{userId}/conversations/{conversationId}",
+      "description": "Private reflective chats with Gemini for journaling assistance",
+      "properties": {
+        "title": { "type": "string" },
+        "messages": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "rules": "request.auth != null && request.auth.uid == userId"
+    }
+  }
+}

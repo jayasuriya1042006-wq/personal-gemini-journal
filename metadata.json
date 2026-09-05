@@ -1,0 +1,6 @@
+{
+  "name": "Personal Gemini Journal",
+  "description": "A security-first, private personal journal with strict Firestore tenant isolation, server-side Gemini AI reflections, and prompt injection defense.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
